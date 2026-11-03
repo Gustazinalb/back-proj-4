@@ -1,4 +1,3 @@
-```php
 <?php
 
 function validarCPF($cpf)

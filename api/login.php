@@ -15,7 +15,7 @@ function base64UrlEncode($dados)
     return rtrim(strtr(base64_encode($dados), '+/', '-_'), '=');
 }
 
-function gerarJWT($idUsuario, $email)
+function gerarJWT($idUsuario, $email, $perfil)
 {
     // Temporário para desenvolvimento local.
     // Depois vamos colocar essa chave nas variáveis de ambiente do Docker.
@@ -35,6 +35,7 @@ if ($chaveSecreta === false || $chaveSecreta === '') {
     $payload = [
         'sub' => $idUsuario,
         'email' => $email,
+        'perfil' => $perfil,
         'iat' => $agora,
         'exp' => $agora + (60 * 60)
     ];
@@ -123,7 +124,7 @@ try {
     */
 
     $stmt = $conexao->prepare(
-        "SELECT id_usuario, nome, email, senha
+        "SELECT id_usuario, nome, email, senha, perfil
          FROM usuarios
          WHERE email = ?"
     );
@@ -190,7 +191,8 @@ try {
 
     $token = gerarJWT(
         $usuario['id_usuario'],
-        $usuario['email']
+        $usuario['email'],
+        $usuario['perfil']
     );
 
     /*
@@ -206,7 +208,8 @@ try {
         'usuario' => [
             'id_usuario' => $usuario['id_usuario'],
             'nome' => $usuario['nome'],
-            'email' => $usuario['email']
+            'email' => $usuario['email'],
+            'perfil' => $usuario['perfil']
         ]
     ], JSON_UNESCAPED_UNICODE);
 

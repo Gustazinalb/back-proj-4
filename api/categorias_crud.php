@@ -8,7 +8,7 @@ require_once 'auth.php';
 try {
 
     // Toda operação exige JWT
-    autenticarJWT();
+    autenticarAdmin();
 
     $metodo = $_SERVER['REQUEST_METHOD'];
 

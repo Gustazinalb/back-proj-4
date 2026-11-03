@@ -250,3 +250,21 @@ if ($chaveSecreta === false || $chaveSecreta === '') {
 
     return $payload;
 }
+
+function autenticarAdmin()
+{
+    $payload = autenticarJWT();
+
+    if (($payload['perfil'] ?? '') !== 'admin') {
+        http_response_code(403);
+
+        echo json_encode([
+            'sucesso' => false,
+            'mensagem' => 'Acesso restrito a administradores.'
+        ], JSON_UNESCAPED_UNICODE);
+
+        exit;
+    }
+
+    return $payload;
+}

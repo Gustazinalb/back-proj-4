@@ -1,4 +1,3 @@
-```php
 <?php
 
 header('Content-Type: application/json; charset=utf-8');
@@ -8,7 +7,7 @@ require_once 'auth.php';
 
 try {
     // Exige um token JWT válido.
-    autenticarJWT();
+    autenticarAdmin();
 
     $metodo = $_SERVER['REQUEST_METHOD'];
 

@@ -1,6 +1,6 @@
 <?php
 
-// Carrega o .env no ambiente local, se o arquivo existir.
+// Carrega o .env no ambiente local, se o arquivo existir
 $arquivoEnv = __DIR__ . '/.env';
 
 if (is_file($arquivoEnv)) {
